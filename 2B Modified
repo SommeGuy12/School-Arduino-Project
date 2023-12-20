@@ -1,1 +1,93 @@
+int firstKeyPin = 5;
+int secondKeyPin = 6;
+int thirdKeyPin = 13;
+int RedPin = 9;
+int GreenPin = 10;
+int BluePin = 11;
+int buzzerPin = 7;
+void setup() {
+  //set the button pins as inputs
+  pinMode(firstKeyPin, INPUT_PULLUP);
+  pinMode(secondKeyPin, INPUT_PULLUP);
+  pinMode(thirdKeyPin, INPUT_PULLUP);
+  pinMode(RedPin, OUTPUT);
+  pinMode(GreenPin, OUTPUT);
+  pinMode(BluePin, OUTPUT);
+  //set the buzzer pin as an output
+  pinMode(buzzerPin, OUTPUT);
+}
+void loop() {
 
+  if (digitalRead(firstKeyPin) == LOW) {      //if the first key is pressed
+    tone(buzzerPin, 262);                     //play the frequency for c
+    red();
+  }
+  else if (digitalRead(secondKeyPin) == LOW) { //if the second key is pressed
+    tone(buzzerPin, 330);                     //play the frequency for e
+    green();
+  }
+  else if (digitalRead(thirdKeyPin) == LOW) { //if the third key is pressed
+    tone(buzzerPin, 392);                     //play the frequency for g
+    blue();
+  }
+  else {
+    noTone(buzzerPin);                        //if no key is pressed turn the buzzer off
+    turnOff ();
+  }
+}
+void red () {
+
+  //set the LED pins to values that make red
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 0);
+}
+void orange () {
+
+  //set the LED pins to values that make orange
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 50);
+  analogWrite(BluePin, 0);
+}
+void yellow () {
+
+  //set the LED pins to values that make yellow
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 100);
+  analogWrite(BluePin, 0);
+}
+void green () {
+
+  //set the LED pins to values that make green
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 100);
+  analogWrite(BluePin, 0);
+}
+void cyan () {
+
+  //set the LED pins to values that make cyan
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 100);
+  analogWrite(BluePin, 100);
+}
+void blue () {
+
+  //set the LED pins to values that make blue
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 100);
+}
+void magenta () {
+
+  //set the LED pins to values that make magenta
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 100);
+}
+void turnOff () {
+
+  //set all three LED pins to 0 or OFF
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 0);
+}
