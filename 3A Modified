@@ -1,0 +1,69 @@
+#include <Servo.h>          //include the servo library=
+int potPosition;           //this variable will store the position of the potentiometer
+int servoPosition;         //the servo will move to this position
+int RedPin = 10;
+int GreenPin = 11;
+int BluePin = 12;
+Servo myservo;              //create a servo object
+void setup() {
+  myservo.attach(9);        //tell the servo object that its servo is plugged into pin 9
+  pinMode(RedPin, OUTPUT);
+  pinMode(GreenPin, OUTPUT);
+  pinMode(BluePin, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+}
+
+void loop() {
+ potPosition = analogRead(A0);    //set potPosition to a number between 0 and 1023 based on how fa
+  Serial.println(potPosition);
+    if (potPosition < 750)
+      red();
+    if (potPosition > 750)
+      blue();
+  potPosition = analogRead(A0);                     //use analog read to measure the position of the potentiometer (0-1023)
+
+  servoPosition = map(potPosition, 0, 1023, 20, 160); //convert the potentiometer number to a servo position from 20-160
+                                                      //Note: its best to avoid driving the little SIK servos all the
+                                                      //way to 0 or 180 degrees it can cause the motor to jitter, which is bad for the servo.
+
+  myservo.write(servoPosition);                      //move the servo to the 10 degree position
+}
+void red () {
+
+  //set the LED pins to values that make red
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 0);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, LOW);
+  digitalWrite(12, LOW);
+}
+void green () {
+
+  //set the LED pins to values that make green
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 100);
+  analogWrite(BluePin, 0);
+    digitalWrite(10, LOW);
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+}
+void blue () {
+
+  //set the LED pins to values that make blue
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 100);
+    digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+  digitalWrite(12, HIGH);
+}
+void turnOff () {
+
+  //set all three LED pins to 0 or OFF
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 0);
+}
